@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { ApiServiceProvider } from '../providers/api-service/api-service';
 
 import { HomePage } from '../pages/home/home';
+import { DashboardPage } from '../pages/dashboard/dashboard';
 @Component({
   templateUrl: 'app.html'
 })
@@ -31,7 +32,10 @@ export class MyApp {
 			statusBar.styleDefault();
 			splashScreen.hide();
 		});
-		
+		this.pages = [
+			{ title: 'Dashboard', icon: 'home', component: DashboardPage },
+			{ title: 'Fueling Service', icon: 'clipboard', component: AddFuelingPage },
+		];
 		let env = this;
 		this.storage.get('loggedinuser').then(function (data){
 			splashScreen.hide();
@@ -41,7 +45,8 @@ export class MyApp {
 				env.apiService.user = data.user;
 				env.apiService.userDetails = data.userDetails;
 				
-				env.rootPage = AddFuelingPage;			}
+				env.rootPage = DashboardPage;			
+			}
 		});
 		
 	}

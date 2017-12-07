@@ -121,6 +121,7 @@ class FuelingController extends ActiveController
 		if(isset($model))
 		{
 			$post = \Yii::$app->request->post();
+			
 			if(!isset($post['fueling_date']) || empty($post['fueling_date']))
 			{
 				$data = array('status'=>'error','message'=> 'Fueling Date is required');
@@ -153,6 +154,14 @@ class FuelingController extends ActiveController
 			
 			}
 			
+			if(!isset($post['account_id']) || empty($post['account_id']))
+			{
+				$data = array('status'=>'error','message'=> 'Vehicle ID is required');
+				\Yii::$app->response->format = 'json';
+				return $data;
+			
+			}
+			
 			if(!isset($post['gallons']) || empty($post['gallons']))
 			{
 				$data = array('status'=>'error','message'=>'Gallons is required');
@@ -160,21 +169,50 @@ class FuelingController extends ActiveController
 				return $data;
 			}
 			
+			if(!isset($_FILES['receipt']) || empty($_FILES['receipt']))
+			{
+				$data = array('status'=>'error','message'=>'Receipt Photo is required');
+				\Yii::$app->response->format = 'json';
+				return $data;
+			}
+			$receiptFile = $_FILES['receipt'];
+			$path = "uploads/receipts";
+			if (!is_dir($path)) {
+				mkdir($path, 0755 , true);
+			}
+			$ext = pathinfo($receiptFile['name'], PATHINFO_EXTENSION);
+			
+			if($ext != "jpg" && $ext != "png" && $ext != "jpeg" && $ext != "gif" ) 
+			{
+				$data = array('status'=>'error','message'=>'Receipt Photo is not an image');
+				\Yii::$app->response->format = 'json';
+				return $data;	
+			}
+			
+			$path = $path . "/" . \Yii::$app->getSecurity()->generateRandomString(32) . "." .$ext;
+			
 			$fueling_date = date('Y-m-d H:i:s', strtotime($post['fueling_date']));
 			$cost = $post['cost'];
 			$odometer_reading = $post['odometer_reading'];
 			$vehicle_id = $post['vehicle_id'];
 			$gallons = $post['gallons'];
+			$account_id = $post['account_id'];
 			
 			$fueling = new \app\models\Fueling;
 			$fueling->created_by = $model->id;
 			$fueling->creation_time = date('Y-m-d H:i:s');
 			$fueling->fueling_date = $fueling_date;
 			$fueling->vehicle_id = \Yii::$app->util->decrypt($vehicle_id);
+			$fueling->account_id = \Yii::$app->util->decrypt($account_id);
 			$fueling->odometer_reading = $odometer_reading;
 			$fueling->cost = $cost;
 			$fueling->gallons = $gallons;
+			
+			if (move_uploaded_file($receiptFile["tmp_name"], $path)) {
+				$fueling->receipt_photo = $path;
+			} 
 			if($fueling->save()){
+				
 				$data = array('status'=>'success','message'=>'Fueling added successfully!');
 				\Yii::$app->response->format = 'json';
 				return $data;

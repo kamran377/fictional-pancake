@@ -13,10 +13,12 @@ use Yii;
  * @property string $odometer_reading
  * @property string $gallons
  * @property integer $vehicle_id
+ * @property integer $account_id
  * @property integer $created_by
  * @property string $creation_time
  * @property integer $updated_by
  * @property string $updated_time
+ * @property string $receipt_photo
  */
 class Fueling extends \yii\db\ActiveRecord
 {
@@ -34,10 +36,11 @@ class Fueling extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fueling_date', 'cost', 'odometer_reading', 'gallons', 'created_by', 'creation_time'], 'required'],
+            [['fueling_date', 'cost', 'odometer_reading', 'gallons', 'created_by', 'creation_time','receipt_photo'], 'required'],
             [['fueling_date', 'creation_time', 'updated_time'], 'safe'],
             [['vehicle_id', 'created_by', 'updated_by'], 'integer'],
             [['cost', 'odometer_reading','gallons'], 'string', 'max' => 20],
+			[['receipt_photo'], 'string', 'max' => 200],
         ];
     }
 
@@ -49,17 +52,27 @@ class Fueling extends \yii\db\ActiveRecord
 			'odometer_reading' =>$this->odometer_reading,
 			'cost' =>$this->cost,
 			'vehicle' => $this->vehicle->name,
-			'gallons' => $this->gallons
+			'gallons' => $this->gallons,
+			'receipt_photo' => $this->receipt_photo,
+			
 		];
 	}
 	
 	
-	 /**
+	/**
      * @return \yii\db\ActiveQuery
      */
     public function getVehicle()
     {
         return $this->hasOne(Vehicle::className(), ['id' => 'vehicle_id']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(), ['id' => 'account_id']);
     }
 	
     /**
@@ -73,11 +86,13 @@ class Fueling extends \yii\db\ActiveRecord
             'cost' => 'Cost',
             'odometer_reading' => 'Odometer Reading',
             'gallons' => 'Gallons',
-            'vehicle_id' => 'Vehicle ID',
+            'vehicle_id' => 'Vehicle',
+            'account_id' => 'Account',
             'created_by' => 'Created By',
             'creation_time' => 'Creation Time',
             'updated_by' => 'Updated By',
             'updated_time' => 'Updated Time',
+			'receipt_photo' => 'Receipt Photo'
         ];
     }
 

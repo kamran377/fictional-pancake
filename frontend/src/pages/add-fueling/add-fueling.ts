@@ -18,6 +18,8 @@ export class AddFuelingPage {
 
 	fuelingForm: FormGroup;
 	vehicles = [];
+	accounts = [];
+	receipt:any;
 	constructor(
 		public navCtrl: NavController, 
 		public navParams: NavParams,
@@ -32,6 +34,8 @@ export class AddFuelingPage {
 			odometer_reading: new FormControl('', Validators.required),
 			vehicle_id: new FormControl('', Validators.required),
 			gallons: new FormControl('', Validators.required),
+			account_id: new FormControl('', Validators.required),
+			
 		});
 		
 	}
@@ -51,11 +55,19 @@ export class AddFuelingPage {
 		'vehicle_id': [
 			{ type: 'required', message: 'Vehicle is required.' }
 		],
+		'account_id': [
+			{ type: 'required', message: 'Account is required.' }
+		],
 		'gallons': [
 			{ type: 'required', message: 'Gallons is required.' }
 		],
+		
 	};
 
+	getFiles(event){ 
+        this.receipt = event.target.files[0]; 
+    } 
+	
 	ionViewDidLoad() {
 		let me = this;
 		let loadingCtrl = this.loadingCtrl;
@@ -63,9 +75,17 @@ export class AddFuelingPage {
 		loading.present();
 		me.apiService.getVehiclesSelectList()
 		.then(function(data){
-			loading.dismiss();
 			let response = JSON.parse(JSON.stringify(data));
 			me.vehicles = response.data.vehicles;
+			me.apiService.getAccountsSelectList()
+			.then(function(data){
+				loading.dismiss();
+				let response = JSON.parse(JSON.stringify(data));
+				me.accounts = response.data.accounts;
+			}, function(error){
+				alert(error);
+				loading.dismiss();
+			});
 		}, function(error){
 			alert(error);
 			loading.dismiss();
@@ -74,17 +94,18 @@ export class AddFuelingPage {
 	}
 	
 	cancel() {
-		me.fuelingForm.reset();
+		this.fuelingForm.reset();
+		(<HTMLInputElement>document.getElementById('receipt')).value = "";
 	}
 	
 	onSubmit(values){
 		let loadingCtrl = this.loadingCtrl;
 		let toastCtrl = this.toastCtrl;
 		let loading = loadingCtrl.create();
+		values.receipt = this.receipt;
+		console.log(values);
 		loading.present();
 		let me = this;
-		
-		console.log(values);
 		
 		this.apiService.saveFueling(values)
 		.then(data => {
@@ -100,6 +121,7 @@ export class AddFuelingPage {
 				});
 				toast.present();
 				me.fuelingForm.reset();
+				(<HTMLInputElement>document.getElementById('receipt')).value = "";
 			} else {
 				let toast = toastCtrl.create({
 					message: response.message,

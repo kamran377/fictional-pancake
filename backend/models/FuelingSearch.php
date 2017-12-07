@@ -18,7 +18,7 @@ class FuelingSearch extends Fueling
     public function rules()
     {
         return [
-            [['id', 'vehicle_id', 'created_by', 'updated_by'], 'integer'],
+            [['id', 'vehicle_id', 'created_by', 'updated_by','account_id'], 'integer'],
             [['fueling_date', 'cost', 'odometer_reading', 'gallons', 'creation_time', 'updated_time'], 'safe'],
         ];
     }

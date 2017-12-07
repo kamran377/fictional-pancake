@@ -6,7 +6,10 @@
 -->
 <ion-header>
 	<ion-navbar color='primary'>
-		<ion-title>Add Fueling</ion-title>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Add Fueling Service</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -49,6 +52,21 @@
 				</div>
 			</ng-container>
 		</div>
+		
+		<ion-item>
+			<ion-label floating>Account</ion-label>
+			<ion-select formControlName="account_id">
+				<ion-option *ngFor="let account of accounts" value="{{account.id}}">{{account.name}}</ion-option>
+			</ion-select>	
+		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="fuelingForm.get('account_id').hasError(validation.type) && (fuelingForm.get('account_id').dirty || fuelingForm.get('account_id').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		
 		<ion-item>
 			<ion-label floating>Truck Odometer Reading</ion-label>
 			<ion-input type="number" formControlName="odometer_reading"></ion-input>
@@ -72,6 +90,12 @@
 				</div>
 			</ng-container>
 		</div>
+		
+		<ion-item>
+			<label>Fueling receipt</label>
+			<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+		</ion-item>
+		
 		
 		
 		<br/><br/>

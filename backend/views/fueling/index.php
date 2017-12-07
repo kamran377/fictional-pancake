@@ -61,7 +61,16 @@ $this->params['breadcrumbs'][] = $this->params['heading'];
 					[
 						'attribute'=>'vehicle_id',
 						'value' =>'vehicle.name',
-						'filter' => \yii\helpers\ArrayHelper::map(\app\models\Vehicle::find()->all(), 'id', 'name'),
+						'filter' => \yii\helpers\ArrayHelper::map(\app\models\Vehicle::find()->selectList(), 'id', 'name'),
+						'filterInputOptions' => [
+							'class'       => 'form-control',
+							'placeholder' => 'Type in some characters to search fuelings ...'
+						]
+					],
+					[
+						'attribute'=>'account_id',
+						'value' =>'account.name',
+						'filter' => \yii\helpers\ArrayHelper::map(\app\models\Account::find()->selectList(), 'id', 'name'),
 						'filterInputOptions' => [
 							'class'       => 'form-control',
 							'placeholder' => 'Type in some characters to search fuelings ...'
@@ -74,7 +83,13 @@ $this->params['breadcrumbs'][] = $this->params['heading'];
 							'placeholder' => 'Type in some characters to search fuelings ...'
 						]
 					],
-
+					[
+						'attribute' => 'receipt_photo',
+						'format' => 'html',    
+						'value' => function ($data) {
+							return Html::img(Yii::getAlias('@web'). "/". $data['receipt_photo']);
+						},
+					],
 					[
 						'class' => 'yii\grid\ActionColumn',
 						'template'=>'{delete}',

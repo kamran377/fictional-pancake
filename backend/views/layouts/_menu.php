@@ -14,9 +14,13 @@ $adminRole = Yii::$app->authManager->getRole('admin');
 		<a href="<?= Url::to(['/user/index']) ?>" class="<?= \Yii::$app->util->startsWith($view,"/user/index") ? "active" : "" ?>"><i class="fa fa-users fa-fw"></i> Users</a> 
 	</li>
 	<li>
+		<a href="<?= Url::to(['/account/index']) ?>" class="<?= \Yii::$app->util->startsWith($view,"/account/index") ? "active" : "" ?>"><i class="fa fa-cc fa-fw"></i> Accounts</a> 
+	</li>
+	<li>
 		<a href="<?= Url::to(['/vehicle/index']) ?>" class="<?= \Yii::$app->util->startsWith($view,"/vehicle/index") ? "active" : "" ?>"><i class="fa fa-truck fa-fw"></i> Vehicles</a> 
 	</li>
 	<li>
 		<a href="<?= Url::to(['/fueling/index']) ?>" class="<?= \Yii::$app->util->startsWith($view,"/fueling/index") ? "active" : "" ?>"><i class="fa fa-calculator fa-fw"></i> Fuel Service</a> 
 	</li>
+	
 </ul>

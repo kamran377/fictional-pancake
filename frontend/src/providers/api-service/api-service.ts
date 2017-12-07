@@ -53,6 +53,11 @@ export class ApiServiceProvider {
 		return  this.authorizedRequest(url, body);
 	}
 	
+	getAccountsSelectList() {
+		let url = this.fullUrl("account/select-list");
+		let body = new FormData();
+		return  this.authorizedRequest(url, body);
+	}
 	
 	getFuelings(offset) {
 		let url = this.fullUrl("fueling/list");
@@ -68,6 +73,8 @@ export class ApiServiceProvider {
 		body.append('cost', postData.cost);
 		body.append('odometer_reading', postData.odometer_reading);
 		body.append('vehicle_id', postData.vehicle_id);
+		body.append('account_id', postData.account_id);
+		body.append('receipt', postData.receipt);
 		body.append('gallons', postData.gallons);
 		return  this.authorizedRequest(url, body);
 	}
