@@ -25,7 +25,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update','delete'],
+                        'actions' => ['index', 'view', 'create', 'update','delete', 'assign'],
                         'allow' => true,
 						'roles' => ['admin']
                     ],
@@ -54,6 +54,35 @@ class UserController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+	
+	public function actionAssign($id)
+    {
+        $id = \Yii::$app->util->decrypt($id);
+		$model = $this->findModel($id);
+		
+        if ($model->load(Yii::$app->request->post())) {
+            $did = $model->id;
+			\Yii::$app->db
+					->createCommand()
+					->delete('{{%user_accounts}}', ['user_id' => $did])
+					->execute();
+					
+			\Yii::$app->db
+			->createCommand()
+                ->batchInsert(
+                    '{{%user_accounts}}',
+                    ['user_id', 'account_id'],
+                    array_map(function ($accountId, $did) { return [$did, $accountId]; }, $model->accountIds,[$did])
+                )
+                ->execute();		
+			Yii::$app->session->setFlash('success', Yii::t('app',"Accounts assigned successfully!"));
+			return $this->redirect(['index']);
+        } else {
+            return $this->render('assignAccounts', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -89,6 +118,7 @@ class UserController extends Controller
 			$model->generateAuthKey();
 			$model->username = trim($model->email);
 			$model->email = trim($model->email);
+			$model->status = 1;
 			if($model->save()) {
 				$dbRole = \Yii::$app->authManager->getRole($role);
 				\Yii::$app->authManager->assign($dbRole, $model->id);

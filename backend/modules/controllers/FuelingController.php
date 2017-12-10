@@ -219,7 +219,7 @@ class FuelingController extends ActiveController
 			}
 			else
 			{
-				$data = array('status'=>'error','error'=>$fueling->getErrors());
+				$data = array('status'=>'error','message'=>$fueling->getErrors());
 				\Yii::$app->response->format = 'json';
 				return $data;
 			}	

@@ -25,7 +25,7 @@ class AccountController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update','delete'],
+                        'actions' => ['index', 'view', 'create', 'update','delete', 'assign'],
                         'allow' => true,
 						'roles' => ['admin']
                     ],
@@ -90,6 +90,8 @@ class AccountController extends Controller
         }
     }
 
+	
+	
     /**
      * Updates an existing Account model.
      * If update is successful, the browser will be redirected to the 'view' page.

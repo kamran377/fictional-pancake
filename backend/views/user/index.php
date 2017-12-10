@@ -41,15 +41,20 @@ $this->params['breadcrumbs'][] = $this->params['heading'];
 
 					[
 						'class' => 'yii\grid\ActionColumn',
-						'template'=>'{edit}',
+						'template'=>'{edit}  {assign}',
 						'buttons'=>[
 							'edit' => function ($url, $model) {
 								return Html::a('<i class="fa fa-pencil-square-o"></i> ', $url, [
 											'title' => Yii::t('app', 'Edit'),
 								]);
 							},
+							'assign' => function ($url, $model) {
+								return Html::a('<i class="fa fa-bank"></i> ', $url, [
+											'title' => Yii::t('app', 'Assigned Accounts'),
+								]);
+							},
 							'delete' => function ($url, $model) {
-								$message = \Yii::t('app','Are you sure you want to delete the selected Legal Act?');
+								$message = \Yii::t('app','Are you sure you want to delete the selected user?');
 							
 								return Html::a('<i class="fa fa-times"></i> ', $url, [
 									'title' => Yii::t('app', 'Delete'),
@@ -75,7 +80,10 @@ $this->params['breadcrumbs'][] = $this->params['heading'];
 								$url = Url::to(['user/delete','id'=>Yii::$app->util->encrypt($model->id)]); // your own url generation logic
 								return $url;
 							}
-							
+							if ($action === 'assign') {
+								$url = Url::to(['user/assign','id'=>Yii::$app->util->encrypt($model->id)]); // your own url generation logic
+								return $url;
+							}
 						}
 					],
 				],

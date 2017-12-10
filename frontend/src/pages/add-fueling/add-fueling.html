@@ -99,7 +99,7 @@
 		
 		
 		<br/><br/>
-		<button ion-button full type="submit" [disabled]="!fuelingForm.valid">Save</button>
+		<button ion-button full type="submit" [disabled]="!fuelingForm.valid && !this.receipt">Save</button>
 		<br/>
 		<button ion-button full color='light' (click)='cancel()' type="button" >Reset</button>
 

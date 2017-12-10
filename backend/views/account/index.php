@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
 											'title' => Yii::t('app', 'Edit'),
 								]);
 							},
+							
 							'delete' => function ($url, $model) {
 								$message = \Yii::t('app','Are you sure you want to delete the selected account?');
 							
@@ -69,6 +70,8 @@ $this->params['breadcrumbs'][] = $this->title;
 								$url = Url::to(['account/delete','id'=>Yii::$app->util->encrypt($model->id)]); // your own url generation logic
 								return $url;
 							}
+							
+							
 							
 						}
 					],

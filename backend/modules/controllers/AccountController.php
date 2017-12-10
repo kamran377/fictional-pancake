@@ -59,7 +59,7 @@ class AccountController extends ActiveController
 		if(isset($model))
 		{
 			
-			$models = Account::find()->selectList();
+			$models = Account::find()->selectList($model->id);
 			$accounts = [];
 			if(isset($models) && count($models) > 0) 
 			{

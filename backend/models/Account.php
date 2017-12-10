@@ -3,7 +3,6 @@
 namespace app\models;
 
 use Yii;
-
 /**
  * This is the model class for table "accounts".
  *
@@ -58,8 +57,12 @@ class Account extends \yii\db\ActiveRecord
             'creation_time' => 'Creation Time',
             'updated_by' => 'Updated By',
             'updated_time' => 'Updated Time',
+			
         ];
     }
+	
+	
+	
 
     /**
      * @inheritdoc

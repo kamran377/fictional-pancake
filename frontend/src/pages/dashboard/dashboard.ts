@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
+import { AddFuelingPage } from '../add-fueling/add-fueling';
 
 /**
  * Generated class for the DashboardPage page.
@@ -26,6 +27,10 @@ export class DashboardPage {
   
 	}
 
+	addFueling() {
+		this.navCtrl.push(AddFuelingPage);
+	}
+	
 	logout() {
 		let storage = this.storage;
 		let env = this;

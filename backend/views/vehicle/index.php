@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->params['heading'];
 								]);
 							},
 							'delete' => function ($url, $model) {
-								$message = \Yii::t('app','Are you sure you want to delete the selected Legal Act?');
+								$message = \Yii::t('app','Are you sure you want to delete the selected vehicle?');
 							
 								return Html::a('<i class="fa fa-times"></i> ', $url, [
 									'title' => Yii::t('app', 'Delete'),

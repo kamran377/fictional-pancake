@@ -67,12 +67,30 @@ class User extends ActiveRecord implements IdentityInterface {
             ['username', 'unique'],
             ['email', 'unique'],
             ['email', 'email'],
-            ['password_repeat', 'compare', 'compareAttribute' => 'password_hash', 'message' => \Yii::t('app', "Passwords don't match"), 'on' => 'signup'],
+            ['accountIds','safe'],
+			['password_repeat', 'compare', 'compareAttribute' => 'password_hash', 'message' => \Yii::t('app', "Passwords don't match"), 'on' => 'signup'],
             ['password_repeat', 'compare', 'compareAttribute' => 'new_password', 'message' => \Yii::t('app', "Passwords don't match"), 'on' => 'change_password'],
             //[['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className() ,'on' => 'signup' ],
             [['whoseme_token','role'], 'string', 'max' => 255],
             [['password_repeat', 'new_password'], 'string', 'min' => 6],
         ];
+    }
+	
+	public function getUserAccounts() {
+        return $this->hasMany(Account::className(), ['id' => 'account_id'])->viaTable('{{%user_accounts}}', ['user_id' => 'id']);
+    }
+	
+	private $_accountIds;
+   
+    public function getAccountIds() {
+        if ($this->_accountIds === null) {
+            $this->_accountIds = ArrayHelper::getColumn($this->userAccounts, 'id');
+        }
+        return $this->_accountIds;
+    }
+	
+	public function setAccountIds($value) {
+       $this->_accountIds = $value;
     }
 
 	public function getApiData() {
@@ -190,6 +208,7 @@ class User extends ActiveRecord implements IdentityInterface {
             'name' => Yii::t('app', 'Name'),
             'mobile' => Yii::t('app', 'Mobile'),
             'profile_image' => Yii::t('app', 'Profile image'),
+			'accountIds'=> 'Assigned Accounts'
         ];
     }
 

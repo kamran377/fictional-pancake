@@ -110,7 +110,9 @@ export class AddFuelingPage {
 		this.apiService.saveFueling(values)
 		.then(data => {
 			loading.dismiss();
-			let response = JSON.parse(JSON.stringify(data));				
+			let response = JSON.parse(JSON.stringify(data));	
+			console.log(response);
+			console.log(response.status);
 			if(response.status == "success") {
 				
 				let toast = toastCtrl.create({
