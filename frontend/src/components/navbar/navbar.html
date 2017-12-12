@@ -1,0 +1,14 @@
+<!-- Generated template for the NavbarComponent component -->
+
+<ion-navbar color='primary'>
+	<button ion-button menuToggle>
+		<ion-icon name="menu"></ion-icon>
+	</button>
+	<ion-title>{{pageName}}</ion-title>
+	<ion-buttons end>
+		<button *ngFor="let link of apiService.links" (click)="updateMenu(link)" ion-button>
+			{{link.name}}
+		</button>
+    </ion-buttons>
+</ion-navbar>
+

@@ -1,0 +1,515 @@
+<!--
+  Generated template for the AddVehicleChecklistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+	<ion-navbar color='primary'>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Add Vehicle Checklist</ion-title>
+	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<form class="sample-form validations-form" [formGroup]="checklistForm"  (ngSubmit)="onSubmit(checklistForm.value)">
+		<ion-item>
+			<ion-label floating>Date of Inspection</ion-label>
+			<ion-datetime displayFormat="MM-DD-YYYY" pickerFormat="MM-DD-YYYY" formControlName="inspection_date"></ion-datetime>
+		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.inspection_date">
+				<div class="error-message" *ngIf="checklistForm.get('inspection_date').hasError(validation.type) && (checklistForm.get('inspection_date').dirty || checklistForm.get('inspection_date').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		
+		<ion-item>
+			<ion-label floating>Truck ID</ion-label>
+			<ion-select formControlName="vehicle_id">
+				<ion-option *ngFor="let vehicle of vehicles" value="{{vehicle.id}}">{{vehicle.name}}</ion-option>
+			</ion-select>	
+		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="checklistForm.get('vehicle_id').hasError(validation.type) && (checklistForm.get('vehicle_id').dirty || checklistForm.get('vehicle_id').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+
+		
+		<ion-item>
+			<ion-label floating>Odometer at Inspection</ion-label>
+			<ion-input type="number" formControlName="odometer_reading"></ion-input>
+		</ion-item>
+		<div class="validation-errors">
+			<ng-container *ngFor="let validation of validation_messages.name">
+				<div class="error-message" *ngIf="checklistForm.get('odometer_reading').hasError(validation.type) && (checklistForm.get('odometer_reading').dirty || checklistForm.get('odometer_reading').touched)">
+					{{ validation.message }}
+				</div>
+			</ng-container>
+		</div>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Vehicle Accident Reports Form</h4>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="accident_report_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="accident_report_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="accident_report_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="accident_report_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Vehicle Inspection Checklist</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="vehicle_inspection_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="vehicle_inspection_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="vehicle_inspection_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="vehicle_inspection_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Vehicle Registration</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="vehicle_registration_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="vehicle_registration_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="vehicle_registration_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="vehicle_registration_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Insurance Information</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="insurance_information_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="insurance_information_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="insurance_information_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="insurance_information_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Tires</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="tires_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="tires_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="tires_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="tires_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Engine</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="engine_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="engine_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="engine_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="engine_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Steering</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="steering_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="steering_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="steering_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="steering_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Horn</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="horn_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="horn_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="horn_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="horn_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Mirrors</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="mirrors_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="mirrors_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="mirrors_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="mirrors_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/>
+		<ion-grid>
+			<ion-row>
+				<ion-col>
+					<h4>Mirrors</h4>
+				</ion-col>
+			</ion-row><ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Checked</ion-label>
+						<ion-checkbox formControlName="mirrors_checked"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>N/A</ion-label>
+						<ion-checkbox formControlName="mirrors_na"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label>Needs Repair</ion-label>
+						<ion-checkbox formControlName="mirrors_repairs"  ></ion-checkbox>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label>Comments</ion-label>
+						<ion-textarea formControlName="mirrors_comments"  ></ion-textarea>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<label>Photo</label>
+						<input type="file" accept="image/*" id='receipt' name="receipt" (change)="getFiles($event)" />
+					</ion-item>
+				</ion-col>
+			</ion-row>
+			
+		</ion-grid>
+		<hr/>
+		<br/><br/>
+		<button ion-button full type="submit" [disabled]="!checklistForm.valid && !this.receipt">Save</button>
+		<br/>
+		<button ion-button full color='light' (click)='cancel()' type="button" >Reset</button>
+
+	</form>
+</ion-content>

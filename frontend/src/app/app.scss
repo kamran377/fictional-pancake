@@ -29,13 +29,12 @@ $font-family-base: "avenir", sans-serif !default;
 
 .menu-content
 {
-	background-color: color($colors, background, base);
+	background-color: color($colors, white);
 }
 
 .menu-list
 {
-	margin: 20vh 0px 0px !important;
-
+	
 	.item
 	{
 		background-color: color($colors, background, base);

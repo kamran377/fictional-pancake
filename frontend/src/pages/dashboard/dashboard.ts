@@ -10,7 +10,6 @@ import { AddFuelingPage } from '../add-fueling/add-fueling';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @Component({
   selector: 'page-dashboard',
   templateUrl: 'dashboard.html',

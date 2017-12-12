@@ -29,22 +29,14 @@ class UsersController extends \yii\rest\ActiveController
     
 		$behaviors['authenticator'] = [
 			'class' => CompositeAuth::className(),
-			'except' => ['options','signup', 'login','profile-picture','custom-accounts'],
+			'except' => ['options','login'],
 			'authMethods' => [
 				HttpBasicAuth::className(),
 				HttpBearerAuth::className(),
 				QueryParamAuth::className(),
 			],
 		];
-		$behaviors['verbs'] = [
-			'class' => VerbFilter::className(),
-			'actions' => [
-				'login' => ['post'],
-				'signup' => ['post'],
-				'changepassword' => ['post'],
-				'profileupdate' => ['post'],
-			],
-		];
+		
 		return $behaviors;
 	}
 	public function actions() 
@@ -55,8 +47,6 @@ class UsersController extends \yii\rest\ActiveController
 		];
 		return $actions;
 	}
-	
-	
 	
 	public function actionLogin()
     {

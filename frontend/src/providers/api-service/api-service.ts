@@ -15,6 +15,7 @@ export class ApiServiceProvider {
 	
 	public user;
 	public userDetails;
+	public links = [];
 	//private baseUrl = "http://localhost:7777/api/";
 	private baseUrl = "http://138.68.7.255/backend/web/index.php/api/";
 
@@ -86,6 +87,11 @@ export class ApiServiceProvider {
 		return  this.authorizedRequest(url, body);
 	}
 	
+	getLinks() {
+		let url = this.fullUrl("links/list");
+		let body = new FormData();
+		return  this.authorizedRequest(url, body);
+	}
 	
 	authorizedRequest(url, formData) {
 		let token = this.user.whoseme_token;
